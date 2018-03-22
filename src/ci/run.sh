@@ -105,6 +105,10 @@ fi
 travis_fold end log-system-info
 
 if [ ! -z "$SCRIPT" ]; then
+  # FIXME(#49246): Re-enable these tools after #49246 has been merged and thus fixing the cache.
+  if [ "$DEPLOY_ALT" = 1 ]; then
+    SCRIPT="$SCRIPT" --exclude src/tools/rls --exclude src/tools/rustfmt --exclude src/tools/clippy
+  fi
   sh -x -c "$SCRIPT"
 else
   do_make() {
